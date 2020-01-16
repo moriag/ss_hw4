@@ -5,7 +5,7 @@ FLAGS = -I. -Wall
 
 all: frequency
 
-frecuency: $(OBJECTS_MAIN)
+frequency: $(OBJECTS_MAIN)
 	$(CC) $(FLAGS) -o frequency $(OBJECTS_MAIN)
 
 trie.o: trie.c
