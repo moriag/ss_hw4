@@ -110,5 +110,4 @@ int main(int argc,char** argv){
     else{inOrder(main_root,s);}//print and free
     //free the string
     free(s);
-return 1;
 }
