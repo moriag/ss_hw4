@@ -61,7 +61,16 @@ void reverseOrder(Letter_node* root,char* s){
   free(root->suf);
   free(root);
 }
+void errRelease(Letter_node* root){
 
+  for(int i=0;i<num_of_letters;i++){
+      //free children's inner alocations 
+      if(root->suf[i]!=NULL) errRelease(root->suf[i]);
+  }   
+  //free the pointer to all children and the pointer to root
+  free(root->suf);
+  free(root);
+}
 int main(int argc,char** argv){
     //verify leagl values
     if(!(argc==1||(argc==2&& !strcmp(argv[1],"r"))))return 0;
@@ -78,8 +87,10 @@ int main(int argc,char** argv){
     // free (main_root);
     // scanf("%c",&c);
     int i=0;
+    
     while (i!=EOF){
        i=scanf("%c",&c);
+       
 
        if(c==' '||c=='\n'){//end of word
             if (word_len){//not empty word
@@ -99,7 +110,11 @@ int main(int argc,char** argv){
         if(sub_root->suf[(int)c]==NULL){//first accurence of this prefix
             sub_root->suf[(int)c]=new(c+'a');
             }
-        
+        if(sub_root->suf[(int)c]==NULL){
+          printf("ERR: alocation failed.\n Releasing alocated memmory...\n");
+          errRelease(main_root);
+          return 0;
+        }
         sub_root=sub_root->suf[(int)c];//continue traveling down by char
         
     }
